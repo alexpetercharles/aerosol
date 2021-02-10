@@ -10,9 +10,12 @@ data_dir = Path('./data/')
 # training data is scanned posters
 poster_height = 989 # px
 poster_width = 700
+poster_channels = 3
 
-# training batch size
+# training batch
 batch_size = 5
+
+#split dataset for training and validation
 validation_split = 0.1
 
 
@@ -32,3 +35,5 @@ validate_ds = keras.preprocessing.image_dataset_from_directory(
   seed = 123,
   image_size = (poster_height, poster_width),
   batch_size = batch_size)
+
+
