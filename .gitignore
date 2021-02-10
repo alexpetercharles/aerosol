@@ -4,8 +4,5 @@
 !.vscode/launch.json
 *.code-workspace
 
-# Training Data
-posters/
-
 # Mac OS
 .DS_Store
