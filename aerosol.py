@@ -6,9 +6,9 @@ import tensorflow as tf
 from pathlib import Path
 from tensorflow import keras
 
-from tensorflow.keras.layers import Input, Dense, Reshape
-from tensorflow.keras.layers import BatchNormalization, Conv2DTranspose, LeakyReLU
 from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Input, Dense, Reshape, Conv2DTranspose, Conv2D
+from tensorflow.keras.layers import BatchNormalization, LeakyReLU, Dropout, Flatten
 
 data_dir = Path('./data/')
 
@@ -44,6 +44,7 @@ validate_ds = keras.preprocessing.image_dataset_from_directory(
 input_shape = 100
 noise = Input(shape = (input_shape))
 
+# models
 def make_generator_model():
   model = Sequential()
 
@@ -63,9 +64,19 @@ def make_generator_model():
 
   return model
 
-generator = make_generator_model()
+def make_discriminator_model():
+  model = Sequential()
 
-generated_image = generator(tf.random.normal([1, 100]), training = False)
+  model.add(Conv2D(64, (5, 5), strides=(2, 2), padding='same',
+                                   input_shape=[100, 70, 3]))
+  model.add(LeakyReLU())
+  model.add(Dropout(0.3))
 
-plt.imshow(generated_image[0, :, :, 0])
-plt.show()
+  model.add(Conv2D(128, (5, 5), strides=(2, 2), padding='same'))
+  model.add(LeakyReLU())
+  model.add(Dropout(0.3))
+
+  model.add(Flatten())
+  model.add(Dense(1))
+
+  return model
