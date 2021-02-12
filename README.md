@@ -3,9 +3,9 @@
 ## About 
 
 My first Machine Learning Project!
-This is a DCGAN written with keras for generating random aerosol posters like this:
+This is a DCGAN for generating random aerosol posters like this:
 
-![Demo Aerosol](real_example.jpeg)
+![Demo Aerosol](posters/real_example.jpeg)
 
 ## Help
 
