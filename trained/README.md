@@ -1,4 +1,4 @@
-# /trained 🎉
+## /trained 👟
 
 this is the folder for trained model checkpoints
 
