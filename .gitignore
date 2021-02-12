@@ -1,6 +1,5 @@
 # VisualStudioCode
-.vscode/*
-*.code-workspace
+.vscode
 
 # Mac OS
 .DS_Store
