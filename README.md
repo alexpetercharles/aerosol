@@ -1,8 +1,9 @@
 # Aerosol 🤖🖌🖼
 
-## About 
+## About
 
-My first Machine Learning Project!
+Part of Christa Kuratli's project.
+
 This is a DCGAN for generating random aerosol posters like this:
 
 ![Demo Aerosol](posters/real_example.jpeg)
