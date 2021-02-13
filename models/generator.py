@@ -46,4 +46,4 @@ def define_model(latent_dim):
   return model
 
 # print model summary
-define_model(100).summary()
+# define_model(100).summary()

@@ -60,4 +60,4 @@ def define_model():
   return model
 
 # print model summary
-define_model().summary()
+# define_model().summary()
