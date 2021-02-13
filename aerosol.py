@@ -33,12 +33,6 @@ validate_ds = keras.preprocessing.image_dataset_from_directory(
   image_size = (poster_height, poster_width),
   batch_size = batch_size)
 
-# plot the posters to verify the posters
-# from utils.image import plot_posters
-# for batch in train_ds:
-#  posters, _ = batch
-#  plot_posters(posters)
-
 # from models import discriminator
 # discriminator_model = discriminator.define_model()
 # discriminator_model.summary()
@@ -48,11 +42,28 @@ validate_ds = keras.preprocessing.image_dataset_from_directory(
 #  posters, _ = batch
 #  print(normalize(posters))
 
+latent_dim = 100
+
 from numpy.random import randn
 # generate random input for generator
 def generate_latent_points(latent_dim, n_samples):
   # generate points in the latent space
   rand_input = randn(latent_dim * n_samples)
   # reshape for model input
-  rand_input = input.reshape(n_samples, latent_dim)
+  rand_input = rand_input.reshape(n_samples, latent_dim)
   return rand_input
+
+# plot the posters to verify the posters
+# from models import generator
+# generator_model = generator.define_model(latent_dim)
+# rand_generator_input = generate_latent_points(latent_dim, 20)
+# generated = generator_model.predict(rand_generator_input)
+# from utils.image import plot_posters
+# from utils.image import normalize_to_float
+# plot_posters(normalize_to_float(generated))
+# 
+# # plot the posters to verify the posters
+# from utils.image import plot_posters, normalize_to_float, normalize_for_model
+# for batch in train_ds:
+#  posters, _ = batch   
+#  plot_posters(normalize_to_float(normalize_for_model(posters.numpy())))
