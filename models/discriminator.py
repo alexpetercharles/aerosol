@@ -8,12 +8,15 @@ from tensorflow.python.keras.backend import dropout
 # z = 3 (rgb)
 # == (100, 70, 3)
 
-def define_model():
+alpha = 0.2
+dropout = 0.4
+loss = 0.0002
+momentum = 0.5
 
-  alpha = 0.2
-  dropout = 0.4
-  loss = 0.0002
-  momentum = 0.5
+# optimizer
+optimizer = keras.optimizers.Adam(loss, beta_1 = momentum)
+
+def define_model():
 
   # sequential model means stacked layers
   model = keras.models.Sequential()
@@ -49,13 +52,6 @@ def define_model():
   model.add(layers.Dropout(dropout))
   model.add(layers.Dense(1, activation = 'sigmoid'))
   # (1)
-
-
-  # optimizer
-  optimizer = keras.optimizers.Adam(loss, beta_1 = momentum)
-
-  # compile
-  model.compile(loss = 'binary_crossentropy', optimizer = optimizer, metrics = ['accuracy'])
 
   return model
 

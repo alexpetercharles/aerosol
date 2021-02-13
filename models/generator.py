@@ -8,9 +8,16 @@ from tensorflow.python.keras.backend import dropout
 # z = 3 (rgb)
 # == (100, 70, 3)
 
+alpha = 0.2
+dropout = 0.4
+loss = 0.0002
+momentum = 0.5
+
+# optimizer
+optimizer = keras.optimizers.Adam(loss, beta_1 = momentum)
+
 def define_model(latent_dim):
 
-  alpha = 0.2
   foundation = 256 * 3 * 4
 
   # sequential model means stacked layers
