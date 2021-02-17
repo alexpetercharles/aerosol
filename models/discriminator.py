@@ -59,6 +59,8 @@ def define_model():
   model.add(layers.Dense(1, activation = 'sigmoid'))
   # (1)
 
+  model.compile(optimizer=optimizer)
+
   return model
 
 # print model summary
