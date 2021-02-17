@@ -2,25 +2,25 @@ from matplotlib import pyplot
 import numpy
 
 def plot_posters(posters):
-  for i in range(len(posters) - 1):
+  # for i in range(len(posters) - 1):
       # define subplot
-      pyplot.subplot(4, 5, 1 + i)
+      # pyplot.subplot(4, 5, 1 + i)
       # turn off axis
-      pyplot.axis('off')
+  pyplot.axis('off')
       # plot raw pixel data
-      pyplot.imshow(posters[i].astype('float32'))
+  pyplot.imshow(posters[0].astype('float32'))
   pyplot.show()
 
 
 def save_posters(posters, epoch, n = 5):
   posters = normalize_to_float(posters)
-  for i in range(5*5):
+  # for i in range(5*5):
     # define subplot
-    pyplot.subplot(n, n, 1 + i)
+    # pyplot.subplot(n, n, 1 + i)
     # turn off axis
-    pyplot.axis('off')
+  pyplot.axis('off')
     # plot raw pixel data
-    pyplot.imshow(posters[i].astype('float32'))
+  pyplot.imshow(posters[0].astype('float32'))
   filename = 'posters/generated/generated_posters_e%03d.png' % (epoch+1)
   pyplot.savefig(filename)
   pyplot.close()
