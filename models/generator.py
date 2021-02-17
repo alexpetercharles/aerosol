@@ -24,27 +24,33 @@ def define_model(latent_dim):
   model = keras.models.Sequential()
 
   model.add(layers.Dense(foundation, input_dim = latent_dim))
+  model.add(layers.BatchNormalization())
   model.add(layers.LeakyReLU(alpha = alpha))
   model.add(layers.Reshape((4, 3, 256)))
   # (4, 3, 256)
 
   model.add(layers.Conv2DTranspose(256, (4, 4), strides = (2, 2), padding = 'same'))
+  model.add(layers.BatchNormalization())
   model.add(layers.LeakyReLU(alpha = alpha))
   # (8, 6, 256)
 
   model.add(layers.Conv2DTranspose(128, (4, 4), strides = (2, 2), padding = 'same'))
+  model.add(layers.BatchNormalization())
   model.add(layers.LeakyReLU(alpha = alpha))
   # (16, 12, 128)
 
   model.add(layers.Conv2DTranspose(128, (4, 4), strides = (2, 2), padding = 'same'))
+  model.add(layers.BatchNormalization())
   model.add(layers.LeakyReLU(alpha = alpha))
   # (32, 24, 128)
 
   model.add(layers.Conv2DTranspose(128, (4, 4), strides = (2, 2), padding = 'same'))
+  model.add(layers.BatchNormalization())
   model.add(layers.LeakyReLU(alpha = alpha))
   # (64, 48, 128)
 
   model.add(layers.Conv2DTranspose(128, (4, 4), strides = (2, 2), padding = 'same'))
+  model.add(layers.BatchNormalization())
   model.add(layers.LeakyReLU(alpha = alpha))
   # (128, 96, 128)
 
