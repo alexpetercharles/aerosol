@@ -7,6 +7,9 @@ from tensorflow.python.keras.engine import training
 
 data_dir = Path('./data/')
 
+checkpoint_dir = './trained/checkpoints'
+trained_model_dir = './trained'
+
 # poster data
 poster_height = 128 # px
 poster_width = 96
@@ -14,7 +17,10 @@ poster_channels = 3
 
 # training batch
 epochs = 400
-batch_size = 10
+batch_size = 20
+
+save_checkpoint_epoch = 50
+save_image_epoch = 10
 
 
 # datasets
@@ -29,6 +35,7 @@ latent_dim = 100
 
 cross_entropy = tensorflow.keras.losses.BinaryCrossentropy(from_logits=True)
 
+@tensorflow.function
 def discriminator_loss(real_output, fake_output):
   real_loss = cross_entropy(tensorflow.ones_like(real_output), real_output)
   fake_loss = cross_entropy(tensorflow.zeros_like(fake_output), fake_output)
@@ -57,9 +64,16 @@ def train_step(generator, discriminator, generator_optimizer, discriminator_opti
     generator_optimizer.apply_gradients(zip(gradients_of_generator, generator.trainable_variables))
     discriminator_optimizer.apply_gradients(zip(gradients_of_discriminator, discriminator.trainable_variables))
 
+# def summarize_performance(generator, discriminator, posters, labels, seed):
+#   generated_posters = generator(seed, training = False)
+# 
+#   _, acc_real = discriminator.evaluate(posters, labels, verbose = 0)
+#   _, acc_fake = discriminator.evaluate(generated_posters, labels, verbose = 0)
+# 
+#   print('>Accuracy real: %.0f%%, fake: %.0f%%' % (acc_real*100, acc_fake*100))
 
 from utils.image import normalize_for_model, save_posters
-def train_gan(dataset):
+def train_gan(train_dataset):
   from models import generator, discriminator
 
   generator_model = generator.define_model(latent_dim)
@@ -68,7 +82,6 @@ def train_gan(dataset):
   generator_optimizer = generator.optimizer
   discriminator_optimizer = discriminator.optimizer
 
-  checkpoint_dir = './trained/'
   checkpoint_prefix = os.path.join(checkpoint_dir, "ckpt")
   checkpoint = tensorflow.train.Checkpoint(generator_optimizer=generator_optimizer,
                                    discriminator_optimizer=discriminator_optimizer,
@@ -83,19 +96,21 @@ def train_gan(dataset):
   for epoch in range(epochs):
     start = time.time()
 
-    dataset = dataset.shuffle(100, reshuffle_each_iteration = True)
+    train_dataset = train_dataset.shuffle(100, reshuffle_each_iteration = True)
     
-    for batch in dataset:
+    for batch in train_dataset:
       posters, _ = batch
 
-
       train_step(generator_model, 
-      discriminator_model, generator_optimizer, discriminator_optimizer, normalize_for_model(posters))
+      discriminator_model, 
+      generator_optimizer,
+      discriminator_optimizer,
+      normalize_for_model(posters))
 
-      if (epoch + 1) % 50 == 0:
-         checkpoint.save(file_prefix = checkpoint_prefix)
-      
-      if (epoch + 1) % 5 == 0:
+      if (epoch + 1) % save_checkpoint_epoch == 0:
+        checkpoint.save(file_prefix = checkpoint_prefix)
+
+      if (epoch + 1) % save_image_epoch == 0:
         save_posters(generator_model(seed, training = False).numpy(), epoch)
     
     print ('Time for epoch {} is {} sec'.format(epoch + 1, time.time()-start))
