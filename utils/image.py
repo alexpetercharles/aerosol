@@ -1,16 +1,4 @@
 from matplotlib import pyplot
-import numpy
-
-def plot_posters(posters):
-  # for i in range(len(posters) - 1):
-      # define subplot
-      # pyplot.subplot(4, 5, 1 + i)
-      # turn off axis
-  pyplot.axis('off')
-      # plot raw pixel data
-  pyplot.imshow(posters[0].astype('float32'))
-  pyplot.show()
-
 
 def save_posters(posters, epoch, n = 5):
   posters = normalize_to_float(posters)

@@ -13,8 +13,8 @@ poster_width = 96
 poster_channels = 3
 
 # training batch
-epochs = 100
-batch_size = 20
+epochs = 400
+batch_size = 10
 
 
 # datasets
@@ -75,6 +75,8 @@ def train_gan(dataset):
                                    generator=generator_model,
                                    discriminator=discriminator_model)
 
+  checkpoint.restore(tensorflow.train.latest_checkpoint(checkpoint_dir))
+
   seed = tensorflow.random.normal([25, latent_dim])
   save_posters(generator_model(seed, training = False).numpy(), 0)
 
@@ -90,27 +92,12 @@ def train_gan(dataset):
       train_step(generator_model, 
       discriminator_model, generator_optimizer, discriminator_optimizer, normalize_for_model(posters))
 
-      if (epoch + 1) % 10 == 0:
-        checkpoint.save(file_prefix = checkpoint_prefix)
-        
-      save_posters(generator_model(seed, training = False).numpy(), epoch)
+      if (epoch + 1) % 50 == 0:
+         checkpoint.save(file_prefix = checkpoint_prefix)
+      
+      if (epoch + 1) % 5 == 0:
+        save_posters(generator_model(seed, training = False).numpy(), epoch)
     
     print ('Time for epoch {} is {} sec'.format(epoch + 1, time.time()-start))
 
 train_gan(train_ds.cache())
-  
-
-# plot the posters to verify the posters
-# from models import generator
-# generator_model = generator.define_model(latent_dim)
-# rand_generator_input = generate_latent_points(latent_dim, 20)
-# generated = generator_model.predict(rand_generator_input)
-# from utils.image import plot_posters
-# from utils.image import normalize_to_float
-# plot_posters(normalize_to_float(generated))
-# 
-# # plot the posters to verify the posters
-# from utils.image import plot_posters, normalize_to_float, normalize_for_model
-# for batch in train_ds:
-#  posters, _ = batch   
-#  plot_posters(normalize_to_float(normalize_for_model(posters.numpy())))
