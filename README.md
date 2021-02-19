@@ -10,6 +10,4 @@ This is a DCGAN for generating random aerosol posters like this:
 
 ## Help
 
-Honestly i have close to zero clues what i am doing. I am trying to document this repo
-well for my own learning. So if you stumble upon this and have some knowledge about
-Keras, GANs or general ML best practises please raise issues or hit me up! ❤️
+I do not have a lot of experience with machine learning. I am trying to document this repo well for my own learning. So if you stumble upon this and have some knowledge about Keras, GANs or general ML best practises please raise issues or hit me up! ❤️
