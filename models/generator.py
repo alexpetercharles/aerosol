@@ -9,7 +9,7 @@ from tensorflow.python.keras.backend import dropout
 # == (100, 70, 3)
 
 alpha = 0.2
-dropout = 0.4
+dropout = 0.5
 loss = 0.0002
 momentum = 0.5
 
@@ -25,33 +25,33 @@ def define_model(latent_dim):
 
   model.add(layers.Dense(foundation, input_dim = latent_dim))
   model.add(layers.BatchNormalization())
-  model.add(layers.LeakyReLU(alpha = alpha))
+  model.add(layers.ReLU())
   model.add(layers.Reshape((4, 3, 128)))
   # (4, 3, 128)
 
   model.add(layers.Conv2DTranspose(128, (4, 4), strides = (2, 2), padding = 'same'))
   model.add(layers.BatchNormalization())
-  model.add(layers.LeakyReLU(alpha = alpha))
+  model.add(layers.ReLU())
   # (8, 6, 128)
 
   model.add(layers.Conv2DTranspose(64, (4, 4), strides = (2, 2), padding = 'same'))
   model.add(layers.BatchNormalization())
-  model.add(layers.LeakyReLU(alpha = alpha))
+  model.add(layers.ReLU())
   # (16, 12, 64)
 
   model.add(layers.Conv2DTranspose(64, (4, 4), strides = (2, 2), padding = 'same'))
   model.add(layers.BatchNormalization())
-  model.add(layers.LeakyReLU(alpha = alpha))
+  model.add(layers.ReLU())
   # (32, 24, 64)
 
   model.add(layers.Conv2DTranspose(64, (4, 4), strides = (2, 2), padding = 'same'))
   model.add(layers.BatchNormalization())
-  model.add(layers.LeakyReLU(alpha = alpha))
+  model.add(layers.ReLU())
   # (64, 48, 64)
 
   model.add(layers.Conv2DTranspose(64, (4, 4), strides = (2, 2), padding = 'same'))
   model.add(layers.BatchNormalization())
-  model.add(layers.LeakyReLU(alpha = alpha))
+  model.add(layers.ReLU())
   # (128, 96, 64)
 
   model.add(layers.Conv2D(3, (3, 3), activation= 'tanh', padding = 'same'))
