@@ -25,35 +25,35 @@ def define_model():
   model.add(layers.Conv2D(64, (3, 3), padding = 'same', input_shape = (128, 96, 3)))
   model.add(layers.BatchNormalization())
   model.add(layers.LeakyReLU(alpha = alpha))
-  # (128, 96, 6)
+  # (128, 96, 64)
 
   model.add(layers.Conv2D(64, (3, 3), strides = (2, 2), padding = 'same'))
   model.add(layers.BatchNormalization())
   model.add(layers.LeakyReLU(alpha = alpha))
   # (64, 48, 64)
 
-  model.add(layers.Conv2D(128, (3, 3), strides = (2, 2), padding = 'same'))
+  model.add(layers.Conv2D(64, (3, 3), strides = (2, 2), padding = 'same'))
   model.add(layers.BatchNormalization())
   model.add(layers.LeakyReLU(alpha = alpha))
-  # (32, 24, 128)
+  # (32, 24, 64)
+
+  model.add(layers.Conv2D(64, (3, 3), strides = (2, 2), padding = 'same'))
+  model.add(layers.BatchNormalization())
+  model.add(layers.LeakyReLU(alpha = alpha))
+  # (16, 12, 64)
 
   model.add(layers.Conv2D(128, (3, 3), strides = (2, 2), padding = 'same'))
   model.add(layers.BatchNormalization())
   model.add(layers.LeakyReLU(alpha = alpha))
-  # (16, 12, 128)
+  # (8, 6, 128)
 
-  model.add(layers.Conv2D(256, (3, 3), strides = (2, 2), padding = 'same'))
+  model.add(layers.Conv2D(128, (3, 3), strides = (2, 2), padding = 'same'))
   model.add(layers.BatchNormalization())
   model.add(layers.LeakyReLU(alpha = alpha))
-  # (8, 6, 256)
-
-  model.add(layers.Conv2D(256, (3, 3), strides = (2, 2), padding = 'same'))
-  model.add(layers.BatchNormalization())
-  model.add(layers.LeakyReLU(alpha = alpha))
-  # (4, 3, 256)
+  # (4, 3, 128)
 
   model.add(layers.Flatten())
-  # (3072)
+  # (1536)
 
   model.add(layers.Dropout(dropout))
   model.add(layers.Dense(1, activation = 'sigmoid'))
@@ -64,4 +64,4 @@ def define_model():
   return model
 
 # print model summary
-# define_model().summary()
+# define_model().summary()
