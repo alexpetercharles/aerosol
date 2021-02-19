@@ -1,5 +1,7 @@
 from matplotlib import pyplot
 
+generated_folder = 'data/generated/'
+
 def save_posters(posters, epoch, n = 5):
   posters = normalize_to_float(posters)
   # for i in range(5*5):
@@ -9,7 +11,7 @@ def save_posters(posters, epoch, n = 5):
   pyplot.axis('off')
     # plot raw pixel data
   pyplot.imshow(posters[0].astype('float32'))
-  filename = 'posters/generated/generated_posters_e%03d.png' % (epoch+1)
+  filename = generated_folder + '/generated_poster_e%03d.png' % (epoch+1)
   pyplot.savefig(filename)
   pyplot.close()
 

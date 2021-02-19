@@ -56,7 +56,7 @@ def define_model(latent_dim):
 
   model.add(layers.Conv2D(3, (3, 3), activation= 'tanh', padding = 'same'))
 
-  model.compile(optimizer=optimizer)
+  # model.compile(optimizer=optimizer)
 
   return model
 

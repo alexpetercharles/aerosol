@@ -5,10 +5,10 @@ from pathlib import Path
 from tensorflow import keras
 from tensorflow.python.keras.engine import training
 
-data_dir = Path('./data/')
+data_dir = Path('./data/training')
 
-checkpoint_dir = './trained/checkpoints'
-trained_model_dir = './trained'
+checkpoint_dir = './models/trained/checkpoints'
+trained_model_dir = './models/trained'
 
 # poster data
 poster_height = 128 # px
@@ -16,7 +16,7 @@ poster_width = 96
 poster_channels = 3
 
 # training batch
-epochs = 400
+epochs = 800
 batch_size = 20
 
 save_checkpoint_epoch = 50
