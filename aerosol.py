@@ -1,6 +1,8 @@
 from pathlib import Path
 from tensorflow import keras
 
+from models import gan, discriminator, generator
+
 from trainers.dcgan import train
 
 data_dir = Path('./data/training')
@@ -13,8 +15,11 @@ poster_width = 96
 poster_channels = 3
 
 # training batch
-epochs = 800
-batch_size = 20
+epochs = 1000
+batch_size = 10
+
+# input dimensions
+latent_dim = 100
 
 
 # datasets
@@ -24,4 +29,11 @@ train_ds = keras.preprocessing.image_dataset_from_directory(
   image_size = (poster_height, poster_width),
   batch_size = batch_size)
 
-train(train_ds.cache(), epochs, batch_size)
+# create models
+disc_model = discriminator.define_model()
+gen_model = generator.define_model(latent_dim)
+
+gan_model = gan.define_model(disc_model, gen_model)
+gan_model.summary()
+
+train(gan_model, disc_model, gen_model, train_ds.cache(), epochs, batch_size, latent_dim)
