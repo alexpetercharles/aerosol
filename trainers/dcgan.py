@@ -39,9 +39,7 @@ def train(gan, discriminator, generator, dataset, epochs, batch_size, latent_dim
     
     for batch in dataset:
       real_posters, _ = batch
-      print(real_posters)
       fake_posters = generator.predict(tensorflow.random.normal([batch_size, latent_dim]))
-      print(fake_posters)
       real_labels = tensorflow.ones((batch_size, 1))
       fake_labels = tensorflow.zeros((batch_size, 1))
 

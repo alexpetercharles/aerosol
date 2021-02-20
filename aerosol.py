@@ -15,7 +15,7 @@ poster_width = 96
 poster_channels = 3
 
 # training batch
-epochs = 1000
+epochs = 5000
 # since discriminator is trained two times this is actually half the batch size
 batch_size = 5
 
