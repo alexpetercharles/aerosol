@@ -16,7 +16,8 @@ poster_channels = 3
 
 # training batch
 epochs = 1000
-batch_size = 10
+# since discriminator is trained two times this is actually half the batch size
+batch_size = 5
 
 # input dimensions
 latent_dim = 100

@@ -10,7 +10,7 @@ def define_model(disc_model, gen_model):
   # sequential model means stacked layers
   model = keras.models.Sequential()
 
-  model.trainable = False
+  disc_model.trainable = False
   
   model.add(gen_model)
   model.add(disc_model)

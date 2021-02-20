@@ -7,7 +7,7 @@ from utils.image import normalize_for_model, save_posters
 checkpoint_dir = './models/trained/checkpoints'
 
 save_checkpoint_epoch = 10
-save_image_epoch = 1
+save_image_epoch = 5
 
 def sum_performance(batch, discriminator, generator, latent_dim, batch_size):
   real_posters, _ = batch
@@ -18,7 +18,6 @@ def sum_performance(batch, discriminator, generator, latent_dim, batch_size):
   _, acc_real = discriminator.evaluate(normalize_for_model(real_posters), real_labels, verbose = 0)
   _, acc_fake = discriminator.evaluate(fake_posters, fake_labels, verbose = 0)
   print('Accuracy real: ', (acc_real*100), 'fake: ', (acc_fake*100))
-
 
 def train(gan, discriminator, generator, dataset, epochs, batch_size, latent_dim):
   # checkpoint saves the weight state
@@ -40,7 +39,9 @@ def train(gan, discriminator, generator, dataset, epochs, batch_size, latent_dim
     
     for batch in dataset:
       real_posters, _ = batch
+      print(real_posters)
       fake_posters = generator.predict(tensorflow.random.normal([batch_size, latent_dim]))
+      print(fake_posters)
       real_labels = tensorflow.ones((batch_size, 1))
       fake_labels = tensorflow.zeros((batch_size, 1))
 
@@ -57,7 +58,7 @@ def train(gan, discriminator, generator, dataset, epochs, batch_size, latent_dim
       ', disc loss for fake: ', fake_disc_loss,
       ', gen loss: ', gen_loss)
       checkpoint.save(file_prefix = checkpoint_prefix)
-      sum_performance(batch, discriminator, generator, latent_dim, batch_size)
+      # sum_performance(batch, discriminator, generator, latent_dim, batch_size)
 
     if (epoch + 1) % save_image_epoch == 0:
       save_posters(generator(seed, training = False).numpy(), epoch)
